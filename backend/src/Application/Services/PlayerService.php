@@ -13,21 +13,37 @@ class PlayerService
         $this->playerRepository = $playerRepository;
     }
 
+    /**
+     * @return mixed
+     */
     public function getAllPlayers()
     {
         return $this->playerRepository->findAll();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getPlayerById($id)
     {
         return $this->playerRepository->findById($id);
     }
 
+    /**
+     * @param array $data
+     * @return mixed
+     */
     public function createPlayer(array $data)
     {
         return $this->playerRepository->save($data);
     }
 
+    /**
+     * @param $id
+     * @param array $data
+     * @return null
+     */
     public function updatePlayer($id, array $data)
     {
         $player = $this->playerRepository->findById($id);
@@ -38,6 +54,10 @@ class PlayerService
         return null;
     }
 
+    /**
+     * @param $id
+     * @return null
+     */
     public function deletePlayer($id)
     {
         $player = $this->playerRepository->findById($id);

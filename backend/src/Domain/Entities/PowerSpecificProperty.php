@@ -3,15 +3,22 @@
 namespace Src\Domain\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PowerSpecificProperty extends Model
 {
-    protected $fillable = ['name'];
+    use SoftDeletes;
 
-    public function playerProperties(): HasMany
+    protected $fillable = [
+        'name', 'value'
+    ];
+
+    public function players()
     {
-        return $this->hasMany(PlayerProperty::class);
+        return $this->belongsToMany(Player::class, 'player_power_properties')
+            ->withPivot('value')
+            ->withTimestamps();
     }
 }
+
 

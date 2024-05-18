@@ -3,9 +3,8 @@
 namespace Src\Domain\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Tournament extends Model
 {
@@ -20,8 +19,9 @@ class Tournament extends Model
         return $this->hasMany(MatchEntity::class);
     }
 
-    public function winner(): BelongsTo
+    public function winner()
     {
         return $this->belongsTo(Player::class, 'winner_id');
     }
+
 }

@@ -8,17 +8,52 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class MatchEntity extends Model
 {
+    protected $table = 'matches';
+
     protected $fillable = [
-        'tournament_id', 'player1_id', 'player2_id', 'winner_id', 'round', 'match_date'
+        'tournament_id',
+        'player_one_id',
+        'player_two_id',
+        'winner_id',
+        'score_player_one',
+        'score_player_two'
     ];
 
-    public function players(): BelongsToMany
-    {
-        return $this->belongsToMany(Player::class, 'match_player', 'match_id', 'player_id');
-    }
 
-    public function tournament(): BelongsTo
+    public function tournament()
     {
         return $this->belongsTo(Tournament::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function playerOne()
+    {
+        return $this->belongsTo(Player::class, 'player_one_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function playerTwo()
+    {
+        return $this->belongsTo(Player::class, 'player_two_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function winner()
+    {
+        return $this->belongsTo(Player::class, 'winner_id');
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function players()
+    {
+        return $this->belongsToMany(Player::class, 'match_player');
     }
 }

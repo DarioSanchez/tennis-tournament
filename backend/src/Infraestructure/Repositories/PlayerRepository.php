@@ -44,4 +44,13 @@ class PlayerRepository implements PlayerRepositoryInterface
         }
         return false;
     }
+
+    public function findPlayersByTournament($tournamentId)
+    {
+        return Player::select('players.*')
+            ->join('tournament_players', 'players.id', '=', 'tournament_players.player_id')
+            ->where('tournament_players.tournament_id', $tournamentId)
+            ->get();
+    }
+
 }
